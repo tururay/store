@@ -12,3 +12,9 @@ class ProductsPage(TemplateView):
 
 class ContactPage(TemplateView):
     template_name='contact.html'
+
+class AdminHomePage(TemplateView):
+    template_name='administrator/index.html'
+
+class AddProductPage(TemplateView):
+    template_name='administrator/add-product.html'

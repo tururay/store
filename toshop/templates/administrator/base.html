@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  {% block head_meta %}
+  {% block head_meta_charset %}
+  <meta charset="utf-8">
+  {% endblock head_meta_charset %}
+
+  {% block head_meta_contentlanguage %}
+  <meta http-equiv="Content-Language" value="en-US" />
+  {% endblock head_meta_contentlanguage %}
+
+  {% block head_meta_viewport %}
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% endblock head_meta_viewport %}
+  {% endblock head_meta %}
+
+  <title>{% block title %}Home {% endblock title %} | To Shop Bolichen</title>
+
+  {% block head_css %}
+  {% block head_css_site %}
+  <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% endblock head_css_site %}
+  {% endblock head_css %}
+
+  <script src="https://kit.fontawesome.com/adfda8a684.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <!-- Logo -->
+      <div class="col-1.5 brand-parent">
+        <a class="navbar-brand" href="#">
+          To Shop <i class="fas fa-shopping-cart"></i>
+        </a>
+      </div>
+
+      <!-- Pesquisa -->
+      <div class="col-3.5 align-middle">
+        <h3 class="text-white ">Administração</h3>
+      </div>
+
+      <!-- Menu -->
+      <div class="col-8">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+          aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item {% block administrator_home_active %}{% endblock %}">
+              <a class="nav-link" href="administrator/products_list">
+                Produtos
+                {% block administrator_home_current_page %}{% endblock %}
+              </a>
+            </li>
+            <li class="nav-item {% block banners__active %}{% endblock %}">
+              <a class="nav-link" href="administrator/products_list">
+                Banners
+                {% block banners_current_page %}{% endblock %}
+              </a>
+            </li>
+            <li class="nav-item {% block categories_active %}{% endblock %}">
+              <a class="nav-link" href="administrator/products_list">
+                Categorias
+                {% block categories_current_page %}{% endblock %}
+              </a>
+            </li>
+            <li class="nav-item {% block users_active %}{% endblock %}">
+              <a class="nav-link" href="administrator/products_list">
+                Usuários
+                {% block users_current_page %}{% endblock %}
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="administrator/products_list">
+                Sair
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb-container" aria-label="breadcrumb">
+    <div class="container">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item" aria-current="page">
+          Admin
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Produtos
+        </li>
+      </ol>
+    </div>
+  </nav>
+
+  {% block content %}
+  {% endblock content %}
+
+  <!-- Footer -->
+  <footer class="py-2 bg-dark fixed-bottom">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Ururay 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("[data-toggle='popover']").each(function (index, element) {
+        var contentElementId = $(element).data().target;
+        $(element).popover({
+          content: $(contentElementId).html(),
+          container: 'body'
+        });
+      });
+    })
+  </script>
+</body>
+
+</html>
