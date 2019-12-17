@@ -1,4 +1,5 @@
 {% extends 'administrator/base.html' %}
+{% load static %}
 {% block title %}Produtos{% endblock title %}
 {% block administrator_home_active %}active{% endblock %}
 {% block administrator_home_current_page %} <span class="sr-only">Atual</span> {% endblock %}
@@ -10,7 +11,7 @@
     <div class="row">
 
         <div class="col-3">
-            <img src="https://placehold.it/250?text=capa" alt="">
+            <img src="{% static 'images/new_product.png' %}" alt="">
         </div>
         <div class="col-9">
             <form name="add-product-form">
