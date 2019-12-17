@@ -4,6 +4,17 @@
 {% block administrator_home_active %}active{% endblock %}
 {% block administrator_home_current_page %} <span class="sr-only">Atual</span> {% endblock %}
 
+{% block breadcrumb_list %}
+<li class="breadcrumb-item">
+    <a href="/administrator/products_list">
+        Produtos
+    </a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">
+    Novo Produto
+</li>
+{% endblock %}
+
 {% block content %}
 <!-- Page Content -->
 <div class="container my-4">

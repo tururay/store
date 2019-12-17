@@ -140,7 +140,12 @@
     <nav class="breadcrumb-container" aria-label="breadcrumb">
       <div class="container">
         <ol class="breadcrumb mb-0">
-          <li class="breadcrumb-item active" aria-current="page">Home</li>
+          <li class="breadcrumb-item {% block breadcrumb_home_active %}{% endblock %}" aria-current="page">
+            <a href="/">
+              Home
+            </a>
+          </li>
+          {% block breadcrumb_list %}{% endblock %}
         </ol>
       </div>
     </nav>
