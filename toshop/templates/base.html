@@ -61,23 +61,33 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
+              <li class="nav-item {% block home_active %}{% endblock %}">
                 <a class="nav-link" href="/">Home
-                  <span class="sr-only">Atual</span>
+                  {% block home_current_page %}{% endblock %}
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="our_history">Sobre</a>
+              <li class="nav-item {% block our_history_active %}{% endblock %}">
+                <a class="nav-link" href="our_history">
+                  Sobre
+                  {% block our_history_current_page %}{% endblock %}
+                </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="products.html">Produtos</a>
+              <li class="nav-item {% block products_active %}{% endblock %}">
+                <a class="nav-link" href="products">
+                  Produtos
+                  {% block products_current_page %}{% endblock %}
+                </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contato</a>
+              <li class="nav-item {% block contact_active %}{% endblock %}">
+                <a class="nav-link" href="contact">
+                  Contato
+                  {% block contact_current_page %}{% endblock %}
+                </a>
               </li>
               <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">
+                <a class="nav-link {% block cart_active %}{% endblock %}" href="#">
                   Carrinho <span class="badge badge-light">1</span>
+                  {% block cart_current_page %}{% endblock %}
                 </a>
               </li>
               <li class="nav-item hidden-lg-up" id="login-link">
