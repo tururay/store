@@ -6,3 +6,9 @@ class HomePage(TemplateView):
 
 class OurHistoryPage(TemplateView):
     template_name='our_history.html'
+
+class ProductsPage(TemplateView):
+    template_name='products.html'
+
+class ContactPage(TemplateView):
+    template_name='contact.html'
