@@ -13,6 +13,9 @@ class Category(models.Model):
     name = models.CharField(max_length=15, null=False, unique=True, verbose_name='Categoria')
     parent = models.ForeignKey('Category', on_delete=models.CASCADE, null=True, verbose_name="Categoria Pai")
 
+    def __str__(self):
+        return self.name
+
 class Product(models.Model):
     name = models.CharField(max_length=100, null=False, blank=False, verbose_name="Nome do Produto")
     price = MoneyField(max_digits=7, decimal_places=2, default_currency='BRL', null=False, blank=False)
