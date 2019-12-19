@@ -49,11 +49,11 @@ class CategoriesPage(TemplateView):
         except (EmptyPage, InvalidPage):
             categories = paginator.page(paginator.num_pages)
 
-        return render(request, 'administrator/categories.html', { 'categories': categories, 'paginator': paginator })
+        return render(request, 'administrator/category/index.html', { 'categories': categories, 'paginator': paginator })
 
     def new(request):
         form = CategoryForm(request.POST)
-        return render(request, 'administrator/add-category.html', { 'form': form })
+        return render(request, 'administrator/category/new.html', { 'form': form })
 
     def create(request):
         form = CategoryForm(request.POST)
@@ -75,7 +75,7 @@ class CategoriesPage(TemplateView):
     def edit(request, category_id):
         category = Category.objects.get(id=category_id)
         form = CategoryForm(instance=category)
-        return render(request, 'administrator/edit-category.html', { 'form': form, 'category': category })
+        return render(request, 'administrator/category/edit.html', { 'form': form, 'category': category })
 
     def update(request, category_id):
         form = CategoryForm(request.POST)
@@ -90,7 +90,7 @@ class CategoriesPage(TemplateView):
             category.save()
             return redirect('categories_list')
         else:
-            return render(request, 'administrator/edit-category.html', { 'form': form, 'category': category })
+            return render(request, 'administrator/category/edit.html', { 'form': form, 'category': category })
         
     def delete(request, category_id):
         category = Category.objects.get(id=category_id)

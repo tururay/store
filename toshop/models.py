@@ -25,6 +25,9 @@ class Product(models.Model):
     discount = models.BooleanField(verbose_name="Desconto", default=False)
     discount_value = MoneyField(max_digits=7, decimal_places=2, default_currency='BRL', null=True)
 
+    def __str__(self):
+        return self.name
+
 class ProductImage(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE, null=False, verbose_name="Produto")
     image = models.FileField(upload_to=product_directory_path, verbose_name='Imagem')
