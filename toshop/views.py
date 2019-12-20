@@ -4,14 +4,28 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from .models import StaticPages, Category, Product, ProductImage
 from .forms import CategoryForm, ProductForm, ProductImageForm
 from django.forms import inlineformset_factory
+from django import forms
 import pdb
 
-ProductImageFormset = inlineformset_factory(Product, ProductImage, fields=('image',), extra=6)
-
-class HomePage(TemplateView):
-    template_name='index.html'
+ProductImageFormset = inlineformset_factory(
+    Product, 
+    ProductImage, 
+    fields=('image', 'cover',), 
+    extra=6,
+    widgets={'cover': forms.CheckboxInput(attrs={'class': 'form-control ml-1 mr-3'}),})
 
 class Pages(TemplateView):
+    def index(request):
+        categories = Category.objects.all()
+        products = Product.objects.all()[:9]
+
+        context = {
+            'categories': categories,
+            'products': products
+        }
+
+        return render(request, 'index.html', context)
+
     def our_history_page(request):
         page = StaticPages.objects.filter(page_id='our_history').first()
         context = {
@@ -20,8 +34,39 @@ class Pages(TemplateView):
         }
         return render(request, 'our_history.html', context)
 
-class ProductsPage(TemplateView):
-    template_name='products.html'
+    def products(request):
+        categories = Category.objects.all()
+
+        query = request.GET.get('query')
+
+        if query:
+            products = Product.objects.filter(name__icontains=query).order_by('name')
+        else:
+            products = Product.objects.all().order_by('name')
+            
+        paginator = Paginator(products, 9)
+
+        try:
+            page_number = int(request.GET.get('page', '1'))
+        except ValueError:
+            page_number = 1
+        
+        try:
+            products = paginator.page(page_number)
+        except (EmptyPage, InvalidPage):
+            products = paginator.page(paginator.num_pages)
+
+        context = {
+            'categories': categories,
+            'products': products,
+            'paginator': paginator
+        }
+
+        return render(request, 'products.html', context)
+    
+    def product(request, product_id):
+        product = Product.objects.get(id=product_id)
+        return render(request, 'product.html', { 'product': product })
 
 class ContactPage(TemplateView):
     template_name='contact.html'

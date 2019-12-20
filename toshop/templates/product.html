@@ -1,0 +1,66 @@
+
+{% extends 'base.html' %}
+{% block title %}{{ product.name }}{% endblock title %}
+{% block products_active %}active{% endblock %}
+{% block products_current_page %} <span class="sr-only">Atual</span> {% endblock %}
+
+{% block breadcrumb_list %}
+<li class="breadcrumb-item">
+  Produtos
+</li>
+<li class="breadcrumb-item active" aria-current="page">
+  {{ product.name }}
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+  <div class="row">
+    <div class="col-6">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            {% for image in product.images %}
+            <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.counter0 == 0 %}active{% else %}{% endif %}"></li>
+            {% endfor %}
+        </ol>
+        <div class="carousel-inner">
+            {% for image in product.images %}
+            {% if forloop.counter0 == 0 %}
+            <div class="carousel-item active">
+            {% else %}
+            <div class="carousel-item">
+            {% endif %}
+                <img src="{{ image.url }}" class="d-block w-100" alt="{{ product.name }}">
+            </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Anterior</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Próximo</span>
+        </a>
+        </div>
+    </div>
+    <div class="col-6">
+        <h2>{{ product.name }}</h2>
+        <h5>{{ product.price }}</h5>
+        <div>
+            {{ product.description }}
+        </div>
+
+        <button class="text-right btn btn-outline-primary mt-5">Comprar</button>
+    </div>
+  </div>
+  <!-- /.row -->
+
+</div>
+<!-- /.container -->
+<script type="text/javascript">
+    $(function(){
+        $('.carousel').carousel()
+    })
+</script>
+{% endblock content %}

@@ -1,8 +1,10 @@
 from django.db import models
 from djmoney.models.fields import MoneyField
+from store.settings import IMAGE_URL
+import pdb
 
 def product_directory_path(instance, filename):
-    return 'product_{0}/{1}-%Y-%m-%d'.format(instance.product.id, filename)
+    return 'product_{0}/{1}'.format(instance.product.id, filename)
 
 class StaticPages(models.Model):
     title = models.CharField(max_length=100, null=False, blank=False, verbose_name="Título")
@@ -26,7 +28,8 @@ class Product(models.Model):
     discount_value = MoneyField(max_digits=7, decimal_places=2, default_currency='BRL', null=True)
 
     def cover(self):
-        return self.productimage_set.first()
+        cover = self.productimage_set.get(cover=True)
+        return cover.url()
 
     def images(self):
         return self.productimage_set.all()
@@ -38,3 +41,6 @@ class ProductImage(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE, null=False, verbose_name="Produto")
     image = models.FileField(upload_to=product_directory_path, verbose_name='Imagem')
     cover = models.BooleanField(default=False, verbose_name="Capa")
+
+    def url(self):
+        return IMAGE_URL + str(self.image)

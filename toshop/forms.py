@@ -1,5 +1,5 @@
 from django import forms
-from .models import Category, Product
+from .models import Category, Product, ProductImage
 from .models import product_directory_path
 from djmoney.forms.fields import MoneyField
 from djmoney.forms.widgets import MoneyWidget
@@ -19,6 +19,12 @@ class CategoryForm(forms.ModelForm):
 
 class ProductImageForm(forms.ModelForm):
     image = forms.ImageField()
+    cover = forms.BooleanField(initial=False, widget=forms.CheckboxInput(attrs={'class': 'form-control mr-2'}))
+
+    class Meta:
+        model = ProductImage
+        fields = ('image', 'cover')
+        widgets = {'cover': forms.CheckboxInput(attrs={'class': 'form-control mr-4'}),}
 
 class ProductForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nome'}))

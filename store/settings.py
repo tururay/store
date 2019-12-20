@@ -170,5 +170,5 @@ DEFAULT_FILE_STORAGE = 'store.storage_backends.MediaStorage'
 AWS_QUERYSTRING_AUTH = False
 AWS_DEFAULT_ACL = None
 
-IMAGE_URL = 'http://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
+IMAGE_URL = 'http://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/media/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'

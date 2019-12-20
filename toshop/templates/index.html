@@ -13,27 +13,28 @@
     <div class="col-lg-3">
       <h1>Bolichen</h1>
       <div class="list-group">
-        <a href="#" class="list-group-item">Categoria 1</a>
-        <a href="#" class="list-group-item">Categoria 2</a>
-        <a href="#" class="list-group-item">Categoria 3</a>
+        {% for category in categories %}
+          <a href="#" class="list-group-item">{{ category.name }}</a>
+        {% endfor %}
       </div>
     </div>
 
     <!-- Vitrine -->
     <div class="col-lg-9">
       <div class="row">
-        {% for i in '123456789'|make_list %}
+        {% for product in products %}
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#">
-                <img class="card-img-top" src="{% static 'images/product_cover.png' %}" alt="">
+              <a href="{% url 'product' product.id %}">
+                <img class="card-img-top" src="{{ product.cover }}" alt="{{ product.name }}">
               </a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">Item {{ i }}</a>
+                  <a href="{% url 'product' product.id %}">{{ product.name }}</a>
                 </h4>
-                <h5>R$ 24,99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+                <h5>{{ product.price }}</h5>
+                <p class="card-text">
+                  {{ product.description | slice:':255' }}
                 </p>
               </div>
               <div class="card-footer d-inline-flex justify-content-between align-items-center">
@@ -45,6 +46,12 @@
             </div>
           </div>
         {% endfor %}
+
+          <button class="btn btn-success btn-block">
+            <a href="{% url 'products' %}" class="text-decoration-none text-light">
+              VER MAIS PRODUTOS
+            </a>
+          </button>
       </div>
       <!-- /.row -->
 

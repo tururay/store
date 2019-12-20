@@ -75,7 +75,11 @@
                             {{ formset.management_form }}
                             {% for form in formset %}
                             <div class='row'>
-                                {{ form.image }}
+                                <div class="form-inline">
+                                    <label>Capa: </label>
+                                    {{ form.cover }}
+                                    {{ form.image }}
+                                </div>
                             </div>
                             {% endfor %}
                         </div>
