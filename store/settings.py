@@ -34,7 +34,7 @@ def env(var_name):
 SECRET_KEY = env('SECRET_KEY')
 
 
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 if env('ENV_ROLE') == 'development':
