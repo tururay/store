@@ -55,7 +55,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item {% block administrator_home_active %}{% endblock %}">
-              <a class="nav-link" href="administrator/products_list">
+              <a class="nav-link" href="{% url 'products_list' %}">
                 Produtos
                 {% block administrator_home_current_page %}{% endblock %}
               </a>
@@ -67,7 +67,7 @@
               </a>
             </li>
             <li class="nav-item {% block categories_active %}{% endblock %}">
-              <a class="nav-link" href="categories">
+              <a class="nav-link" href="{% url 'categories_list' %}">
                 Categorias
                 {% block categories_current_page %}{% endblock %}
               </a>

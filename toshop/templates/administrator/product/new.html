@@ -25,20 +25,21 @@
             <img src="{% static 'images/new_product.png' %}" alt="">
         </div>
         <div class="col-9">
-            <form name="add-product-form">
+            <form name="add-product-form" enctype="multipart/form-data" method="POST" action="{% url 'save_product' %}">
+            {% csrf_token %}
                 <div class="row">
                     <div class="col">
-                        <label for="name">Nome</label>
-                        <input type="text" name="name" class="form-control" />
+                        <label for="id_name">Nome</label>
+                        {{ form.name }}
                     </div>
                     <div class="col">
-                        <label for="price">Preço</label>
-                        <input type="text" name="price" class="form-control" placeholder="89.99" />
+                        <label for="id_price">Preço</label>
+                        {{ form.price }}
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="description">Descrição</label>
-                    <textarea name="description" class="form-control"></textarea>
+                    {{ form.description }}
                 </div>
                 <div class="row">
                     <div class="col">
@@ -46,53 +47,42 @@
                             <label>
                                 Categoria
                             </label>
-                            <select class="custom-select">
-                                <option value="1" selected>Artesanato</option>
-                                <option value="2">Casa Nova</option>
-                                <option value="3">Natal</option>
-                                <option value="4">Dia dos Namorados</option>
-                            </select>
+                            {{ form.category }}
                         </div>
                     </div>
                     <div class="col">
                         <label>
                             Ativo
                         </label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="active-flag" id="active" value="true">
-                            <label class="form-check-label" for="active">
-                                Sim
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="active-flag" id="inactive" value="false"
-                                checked>
-                            <label class="form-check-label" for="inactive">
-                                Não
-                            </label>
-                        </div>
+                        {{ form.active }}
                     </div>
                     <div class="col">
                         <label>Desconto</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="active-flag" id="discount"
-                                value="discount">
+                            {{ form.discount }}
                             <label class="form-check-label" for="discount">
                                 Pode aplicar?
                             </label>
                         </div>
                     </div>
                 </div>
+                
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
                             <label>Fotos</label>
-                            <input type="file" name="photos[]" multiple="true" class="form-control">
+
+                            {{ formset.management_form }}
+                            {% for form in formset %}
+                            <div class='row'>
+                                {{ form.image }}
+                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
                 <div class="row justify-content-end">
-                    <button type="button" id="add-product" class="btn btn-success">Cadastrar</button>
+                    <button type="submit" id="add-product" class="btn btn-success">Cadastrar</button>
                 </div>
             </form>
         </div>

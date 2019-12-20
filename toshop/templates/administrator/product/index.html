@@ -1,0 +1,134 @@
+{% extends 'administrator/base.html' %}
+{% block title %}Produtos{% endblock title %}
+{% block administrator_home_active %}active{% endblock %}
+{% block administrator_home_current_page %} <span class="sr-only">Atual</span> {% endblock %}
+
+{% block breadcrumb_list %}
+<li class="breadcrumb-item active" aria-current="page">
+    Produtos
+</li>
+{% endblock %}
+
+{% block content %}
+<!-- Page Content -->
+<div class="row">
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-8 d-flex justify-content-start">
+                <div id="filters">
+                    <form class="form-inline" method="GET" action="{% url 'products_list' %}">
+                        <input class="form-control" type="search" name="query" placeholder="Pesquisar produtos..." />
+                        <button class="btn btn-secondary" type='submit'>
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-4 d-flex justify-content-end">
+                <a href="{% url 'add_product' %}">
+                    <button class="btn btn-success">Novo</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="container">
+                {% if products %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Descrição</th>
+                                <th>Categoria</th>
+                                <th>Preço</th>
+                                <th>Tem desconto?</th>
+                                <th>Valor do Desconto</th>
+                                <th>Ativo</th>
+                                <th>Editar</th>
+                                <th>Deletar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                            <tr>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.description }}</td>
+                                <td>{{ product.category.name }}</td>
+                                <td>{{ product.price }}</td>
+                                <td>
+                                    {% if product.discount %}
+                                        Sim
+                                    {% else %}
+                                        Não
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if product.discount_value %}
+                                        {{ product.discount_value }}
+                                    {% else %}
+                                        --
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if product.active %}
+                                        Sim
+                                    {% else %}
+                                        Não
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="/administrator/add_product">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'delete_product' product.id %}"
+                                        <i class="fas fa-trash-alt text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="alert alert-warning" role="alert">
+                        Não há produtos cadastrados.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+
+        {% if products %}
+        <nav>
+            <ul class="pagination justify-content-end">
+                <li class="page-item">
+                    {% if products.has_previous %}
+                        <a class="page-link" href="?page={{ products.previous_page_number }}">Anterior</a>
+                    {% else %}
+                        <a class="page-link" href="#">Anterior</a>
+                    {% endif %}
+                </li>
+
+                {% for page_number in paginator.page_range %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{page_number}}">{{ page_number }}</a>
+                    </li>
+                {% endfor %}
+
+                <li class="page-item">
+                    {% if products.has_next %}
+                        <a class="page-link" href="?page={{ products.next_page_number }}">Próximo</a>
+                    {% else %}
+                        <a class="page-link" href="#">Próximo</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+{% endblock content %}

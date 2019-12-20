@@ -25,6 +25,12 @@ class Product(models.Model):
     discount = models.BooleanField(verbose_name="Desconto", default=False)
     discount_value = MoneyField(max_digits=7, decimal_places=2, default_currency='BRL', null=True)
 
+    def cover(self):
+        return self.productimage_set.first()
+
+    def images(self):
+        return self.productimage_set.all()
+
     def __str__(self):
         return self.name
 
